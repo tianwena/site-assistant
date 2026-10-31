@@ -1,0 +1,6 @@
+# 仅本地 `wrangler dev` 用：指向 test/mock-upstream.mjs 的假模型，不花钱、不是真密钥
+MODEL_API_BASE=http://127.0.0.1:8799/v1
+MODEL_API_KEY=local-test-key
+IP_HASH_SALT=local-test-salt
+PER_IP_DAILY_LIMIT_CNY=0.25
+RATE_LIMIT_PER_MINUTE=8

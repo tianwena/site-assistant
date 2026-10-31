@@ -1,0 +1,18 @@
+{#- 导航助手：原生 <details>，收起时头像图片不加载（loading=lazy，收起态不渲染）。
+    桌宠是两张静态头像（睁眼／眨眼）+ CSS 动效，状态由 pet.js 切换 class。
+    ⚠️ 收起态的 .assistant-launcher 是 <summary>，键盘与读屏都靠它。 -#}
+<details class="assistant" data-assistant>
+  <summary class="assistant-launcher"><span class="dot" aria-hidden="true"></span><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-8 8c-1.2 0-2.3-.2-3.3-.7L4 20l1.2-4.7A8 8 0 1 1 20 11.5Z" stroke="currentColor" stroke-width="1.7"/><path d="M8 10h8M8 13h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>小鲸鱼<span class="launcher-extra"> · AI 导航</span></span></summary>
+  <div class="guide" id="guide">
+    <div class="guide-head">
+      <div class="pet-slot"><button class="pet-stack" type="button" data-pet aria-label="小鲸鱼 · 可点击互动">
+        <img class="pet-face" src="/assets/pet/avatar.webp" alt="" width="52" height="52" loading="lazy" decoding="async" draggable="false">
+        <img class="pet-face pet-blink" src="/assets/pet/avatar-blink.webp" alt="" width="52" height="52" loading="lazy" decoding="async" draggable="false">
+      </button></div>
+      <div class="guide-id"><b>小鲸鱼</b><span class="guide-state" data-state aria-live="polite">正在连接…</span></div>
+      <button type="button" class="assistant-close" data-assistant-close aria-label="收起 AI 助手">×</button>
+    </div>
+    <p class="guide-tip">站上的内容我都读过。<a href="#contact" data-open="contact">直接联系袁天 →</a></p>
+    {% include "clip.njk" %}
+  </div>
+</details>

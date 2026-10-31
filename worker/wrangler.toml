@@ -1,0 +1,43 @@
+# 助手后端（chat.tianwena.cn）· Cloudflare Worker 版
+# 取代「家里电脑 + Cloudflare Tunnel」的 assistant/（FastAPI）。接口契约不变，前端 chat.js 不用改。
+name = "portfolio-assistant"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+# workers.dev 在国内访问不稳，站点只走自定义域名
+workers_dev = false
+
+# 知识与提示词直接打包 assistant/ 下的同一份文件：改了站点内容就重跑 export_knowledge.py 再部署
+[[rules]]
+type = "Text"
+globs = ["**/*.txt"]
+fallthrough = true
+
+[[routes]]
+pattern = "chat.tianwena.cn"
+custom_domain = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "portfolio-assistant"
+database_id = "a97617ba-a4d0-4ff8-89eb-1a9f77d8fb27"
+migrations_dir = "migrations"
+
+# 上限与单价：与 assistant/.env.example 同名同义。改这里再 deploy 即生效。
+# 密钥类（MODEL_API_KEY、IP_HASH_SALT）不写在这里，用 `npx wrangler secret put <名字>` 设置。
+[vars]
+MODEL_API_BASE = "https://api.deepseek.com/v1"
+MODEL_NAME = "deepseek-chat"
+PRICE_IN_CNY_PER_M = "2.0"
+PRICE_IN_CACHED_CNY_PER_M = "0.5"
+PRICE_OUT_CNY_PER_M = "8.0"
+DAILY_LIMIT_CNY = "20"
+PER_IP_DAILY_LIMIT_CNY = "2"
+MAX_ROUNDS_PER_CONVERSATION = "10"
+MAX_MESSAGE_CHARS = "2000"
+RATE_LIMIT_PER_MINUTE = "20"
+MAX_OUTPUT_TOKENS = "1024"
+UPSTREAM_TIMEOUT_S = "45"
+TZ_OFFSET_HOURS = "8"
+MAX_CONTEXT_CHARS = "60000"
+MAX_BODY_BYTES = "65536"
+CORS_ORIGINS = "https://tianwena.cn,https://portfolio-6ru.pages.dev"
